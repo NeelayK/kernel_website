@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Events — &lt;/KERNEL&gt;</title>
+<meta name="description" content="Upcoming and past events from </KERNEL>, the Data Science Society of IISER Thiruvananthapuram." />
+<link rel="stylesheet" href="css/style.css" />
+<link rel="icon" type="image/png" href="assets/favicon.png" />
+</head>
+<body>
+
+<div class="page-loader" id="page-loader">
+  <div class="loader-inner">
+    <div class="loader-mark">&lt;/<span class="box">KERNEL</span>&gt;</div>
+    <div class="loader-bar"><div class="loader-bar-fill"></div></div>
+    <p class="loader-text">fetching data from supabase…</p>
+  </div>
+</div>
+
+<nav class="site-nav">
+  <div class="wrap">
+    <a class="logo" href="index.html">&lt;/<span>KER</span><span>NEL</span>&gt;</a>
+    <button class="nav-toggle" aria-label="Toggle menu">☰</button>
+    <ul class="nav-links">
+      <li><a href="index.html" data-page="index.html">home</a></li>
+      <li><a href="talks.html" data-page="talks.html">talks</a></li>
+      <li><a href="events.html" data-page="events.html">events</a></li>
+      <li><a href="newsletter.html" data-page="newsletter.html">newsletter</a></li>
+      <li><a href="about.html" data-page="about.html">about</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="page-head">
+  <div class="wrap">
+    <div class="prompt-line"><span>$ select * from events;</span><span class="cursor"></span></div>
+    <h1>Events</h1>
+    <p class="lede">Workshops, hackathons, socials and outreach programs run by the society.</p>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="section">
+    <div class="section-head">
+      <h2><span class="idx">01.</span>upcoming</h2>
+    </div>
+    <div class="grid" id="upcoming-events">
+      <div class="skeleton skeleton-card"></div>
+      <div class="skeleton skeleton-card"></div>
+      <div class="skeleton skeleton-card"></div>
+    </div>
+  </section>
+
+  <hr class="rule" />
+
+  <section class="section">
+    <div class="section-head">
+      <h2><span class="idx">02.</span>past</h2>
+    </div>
+    <div class="grid" id="past-events">
+      <div class="skeleton skeleton-card"></div>
+      <div class="skeleton skeleton-card"></div>
+      <div class="skeleton skeleton-card"></div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div>
+      <div class="logo" style="margin-bottom:10px;">&lt;/<span>KER</span><span>NEL</span>&gt;</div>
+      <p class="footer-note">Data Science Society, IISER Thiruvananthapuram. Built by students, for students.</p>
+    </div>
+    <div class="footer-links">
+      <a href="about.html">about</a>
+      <a href="talks.html">talks</a>
+      <a href="events.html">events</a>
+      <a href="newsletter.html">newsletter</a>
+      <a href="mailto:kernel@iisertvm.ac.in">contact</a>
+    </div>
+  </div>
+</footer>
+
+<script type="module" src="js/events.js"></script>
+</body>
+</html>
