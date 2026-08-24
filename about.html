@@ -10,6 +10,8 @@
   .page-loader { position: fixed; inset: 0; background: #08080A; z-index: 9999; display: flex; align-items: center; justify-content: center; opacity: 1; transition: opacity 0.3s ease, visibility 0.3s ease; }
   .page-loader.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
 </style>
+
+<link rel="preload" href="assets/logo.png" as="image" />
 <link rel="stylesheet" href="css/style.css" />
 <link rel="icon" type="image/png" href="assets/favicon.png" />
 </head>
@@ -17,9 +19,9 @@
 
 <div class="page-loader" id="page-loader">
   <div class="loader-inner">
-    <div class="loader-mark">&lt;/<span class="box">KERNEL</span>&gt;</div>
+    <img class="loader-mark" src="assets/logo.png" alt="&lt;/KERNEL&gt;" />
     <div class="loader-bar"><div class="loader-bar-fill"></div></div>
-    <p class="loader-text">uploading 481 files…</p>
+    <p class="loader-text">uploading 184 files…</p>
   </div>
 </div>
 
