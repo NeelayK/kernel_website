@@ -1,19 +1,7 @@
-/* ============================================================
-   </KERNEL> — Data Science Society, IISER TVM
-   Design system: dark IDE / notebook-cell aesthetic
-   ============================================================ */
-
 @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Russo+One&display=swap');
 
 :root{
-  /* ============================================================
-     COLOR PALETTE — edit these to re-theme the whole site.
-     Matched to the </KERNEL> logo (black / white / crimson).
-     Everything else in this file references these tokens —
-     change a value here and it updates everywhere.
-     ============================================================ */
-
-  /* neutrals */
   --bg:         #08080A;
   --surface:    #131316;
   --surface-2:  #1C1C21;
@@ -22,15 +10,14 @@
   --text-mute:  #9B9BA3;
   --text-dim:   #55555E;
 
-  /* brand — from the logo's crimson panel */
-  --accent:        #B12C5B;  /* primary crimson — prompts, buttons, active states */
-  --accent-bright: #E2678F;  /* lighter tint — links, hovers, secondary highlights */
-  --accent-dim:    #4A1526;  /* darker tint — subtle fills / borders on accent */
-  --accent-ink:    #FBEAF0;  /* text/icon color to use on top of --accent fills */
+  --accent:        #B12C5B;
+  --accent-bright: #E2678F;
+  --accent-dim:    #4A1526;
+  --accent-ink:    #FBEAF0;
 
-  /* functional (not brand — status only) */
   --err:  #f28b82;
 
+  --logo: 'Russo One', sans-serif;
   --mono: 'JetBrains Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
   --sans: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 
@@ -91,9 +78,7 @@ img{ max-width: 100%; display:block; }
 .page-loader.hidden{ opacity:0; visibility:hidden; pointer-events:none; }
 .loader-inner{ text-align:center; }
 .loader-mark{
-  display:flex; align-items:center; justify-content:center; gap:1px;
-  font-family: var(--mono); font-weight: 800; font-size: 1.6rem;
-  letter-spacing: -0.02em; color: var(--text); margin-bottom: 20px;
+  display:flex; align-items:center; max-width: 300px;
 }
 .loader-mark .box{
   background: var(--accent); color: var(--accent-ink);
@@ -126,16 +111,9 @@ img{ max-width: 100%; display:block; }
   height: 62px;
 }
 .logo{
-  font-family: var(--mono);
-  font-weight: 800;
-  font-size: 1.05rem;
-  color: var(--text);
-  letter-spacing: 0.02em;
-  white-space: nowrap;
+  max-width: 180px;
+  display:inline-block;
 }
-.logo span{ color: var(--text); }
-.logo span:first-child{ background-color: var(--accent);color: var(--bg); }
-.logo:hover{ text-decoration:none; }
 
 .nav-links{
   display:flex; gap: 4px;
@@ -244,7 +222,9 @@ img{ max-width: 100%; display:block; }
   margin-bottom: 18px;
 }
 .hero h1 .br{ color: var(--text-dim); }
-.hero h1 .kw{ color: var(--accent); background: var(--surface); padding: 0 .12em; border-radius: 2px; }
+.kw{font-family: var(--logo); font-size: 0.6em; }
+.kw span{ color: var(--accent); }
+
 .hero h1 .str{ color: var(--accent-bright); }
 .hero .lede{
   font-size: 1.08rem;
@@ -263,7 +243,6 @@ img{ max-width: 100%; display:block; }
 .section-head h2{ font-size: 1.4rem; margin:0; }
 .section-head h2 .idx,
 .section-head h3 .idx{ color: var(--accent-bright); margin-right: 10px; }
-.section-head .more{ font-family: var(--mono); font-size: .85rem; white-space: nowrap; }
 .section-sub{ color: var(--text-mute); max-width: 640px; margin: -12px 0 24px; }
 
 .grid{
@@ -374,52 +353,161 @@ img{ max-width: 100%; display:block; }
   padding: 4px 10px; margin: 0 6px 6px 0;
 }
 
-.about-statement{
-  font-family: var(--mono);
-  font-size: clamp(1.1rem, 2.4vw, 1.5rem);
-  font-weight: 700;
-  color: var(--text);
-  line-height: 1.4;
-  margin: 0;
-}
-.about-statement .hl{ color: var(--accent-bright); }
 
 .team-section{ margin: 0 0 44px; }
 .team-section:last-child{ margin-bottom: 0; }
 .team-section .section-head h3{ font-size: 1.15rem; margin:0; }
 
-.member-grid{
-  display:grid; gap: 18px;
-  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+.about-statement {
+  font-family: var(--mono);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--text-mute);
+  margin: 0;
 }
-.member-card{
+
+.about-statement .hl {
+  color: var(--accent-bright);
+  font-weight: 600;
+}
+
+/* ---------------- team & member cards ---------------- */
+.member-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 220px));
+  gap: 16px;
+}
+
+.member-card {
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: 6px;
-  padding: 22px 18px;
+  padding: 16px 14px;
   text-align: center;
-  transition: border-color .15s ease, transform .15s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
 }
-.member-card:hover{ border-color: var(--accent-bright); transform: translateY(-2px); }
-.member-pfp{
-  width: 84px; height: 84px; border-radius: 50%;
-  overflow: hidden; margin: 0 auto 14px;
-  border: 2px solid var(--accent-dim);
+
+.member-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--accent-bright);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5), 0 0 18px rgba(226, 103, 143, 0.2);
+}
+
+.member-pfp {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin: 0 auto 12px;
+  border: none;
   background: var(--surface-2);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.4);
 }
-.member-pfp img{ width:100%; height:100%; object-fit: cover; }
-.member-pfp.empty{
-  display:flex; align-items:center; justify-content:center;
-  color: var(--accent-bright); font-family: var(--mono); font-weight:700; font-size: 1.5rem;
+
+.member-pfp img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.member-pfp.empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent-bright);
+  font-family: var(--mono);
+  font-weight: 700;
+  font-size: 1.3rem;
   background: var(--accent-dim);
 }
-.member-name{ font-size: 1rem; margin: 0 0 2px; color: var(--text); }
-.member-role{
-  font-family: var(--mono); font-size: .74rem; color: var(--accent-bright);
-  text-transform: uppercase; letter-spacing: .04em; margin-bottom: 8px;
+
+.member-name {
+  font-size: 0.95rem;
+  margin: 0 0 2px;
+  color: var(--text);
 }
-.member-meta{ font-family: var(--mono); font-size: .76rem; color: var(--text-dim); margin-bottom: 10px; }
-.member-desc{ font-size: .86rem; color: var(--text-mute); margin:0; }
+
+.member-role {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  color: var(--accent-bright);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 6px;
+}
+
+.member-meta {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  color: var(--text-dim);
+  margin-bottom: 8px;
+}
+
+.member-desc {
+  font-size: 0.82rem;
+  color: var(--text-mute);
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* ---------------- modern contact panel ---------------- */
+.contact-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 14px;
+  margin-top: 8px;
+}
+
+.contact-card {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.contact-card:hover {
+  border-color: var(--accent-bright);
+  box-shadow: 0 0 14px rgba(226, 103, 143, 0.18);
+}
+
+.contact-label {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  color: var(--accent-bright);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.contact-value {
+  font-size: 0.9rem;
+  color: var(--text);
+  word-break: break-word;
+}
+
+.contact-value a {
+  color: var(--text);
+  transition: color 0.15s ease;
+}
+
+.contact-value a:hover {
+  color: var(--accent-bright);
+  text-decoration: none;
+}
+
+.contact-nav-links {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-top: 2px;
+}
 
 /* ---------------- detail pages (talk / event / issue) ---------------- */
 .detail{ max-width: 720px; }

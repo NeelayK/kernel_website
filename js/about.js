@@ -12,8 +12,8 @@ function memberCard(m) {
     ? `<img src="${escapeHTML(m.image_url)}" alt="${escapeHTML(label)}" loading="lazy" />`
     : "";
   const metaParts = [];
-  if (m.batch) metaParts.push(`batch ${escapeHTML(String(m.batch))}`);
-  if (m.roll) metaParts.push(`roll ${escapeHTML(String(m.roll))}`);
+  if (m.batch) metaParts.push(`${escapeHTML(String(m.batch))}`);
+  if (m.roll) metaParts.push(`${escapeHTML(String(m.roll))}`);
 
   return `
     <div class="member-card">
@@ -27,6 +27,7 @@ function memberCard(m) {
 
 async function loadTeam() {
   const container = document.getElementById("team-container");
+  if (!container) return;
   if (!isConfigured) return renderState(container, NOT_CONFIGURED_MSG, true);
 
   const [sectionsRes, membersRes] = await Promise.all([

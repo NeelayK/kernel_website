@@ -4,7 +4,7 @@ import { fmtDate, escapeHTML, initNav, renderSkeletons, renderState, hideLoader 
 initNav();
 
 const PAGE_SIZE = 12;
-let page = 0; // zero-indexed
+let page = 0;
 let atLastPage = false;
 
 const grid = document.getElementById("talks-grid");
@@ -46,7 +46,7 @@ async function loadPage() {
   nextBtn.disabled = true;
 
   const from = page * PAGE_SIZE;
-  const to = from + PAGE_SIZE - 1; // inclusive, one extra fetched via +1 trick below
+  const to = from + PAGE_SIZE - 1;
 
   const { data, error } = await supabase
     .from("talks")
