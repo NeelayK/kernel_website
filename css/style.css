@@ -68,6 +68,53 @@ img{ max-width: 100%; display:block; }
   padding: 0 24px;
 }
 
+/* ---------------- light mode overrides ---------------- */
+body.light-mode {
+  --bg: #F8F9FA;
+  --surface: #FFFFFF;
+  --surface-2: #F1F3F5;
+  --border: #E2E8F0;
+  --text: #0F172A;
+  --text-mute: #475569;
+  --text-dim: #64748B;
+  --accent: #B12C5B;
+  --accent-bright: #9E1C48;
+  --accent-dim: #FCE7F0;
+  --accent-ink: #FFFFFF;
+
+  background-image:
+    radial-gradient(ellipse 900px 500px at 12% -10%, rgba(177,44,91,0.06), transparent 60%),
+    radial-gradient(ellipse 700px 500px at 100% 0%, rgba(177,44,91,0.04), transparent 60%);
+}
+
+body.light-mode .site-nav {
+  background: rgba(255, 255, 255, 0.85);
+}
+
+.theme-toggle {
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 6px 8px;
+  border-radius: var(--radius);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color 0.15s ease, background 0.15s ease, color 0.15s ease;
+}
+
+.theme-toggle svg {
+  display: block;
+  pointer-events: none;
+}
+
+.theme-toggle:hover {
+  border-color: var(--accent-bright);
+  background: var(--surface-2);
+  color: var(--accent-bright);
+}
+
 /* ---------------- page loader ---------------- */
 .page-loader{
   position: fixed; inset: 0; z-index: 500;
@@ -113,6 +160,7 @@ img{ max-width: 100%; display:block; }
 .logo{
   max-width: 180px;
   display:inline-block;
+  filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.5)) drop-shadow(0 0 5px rgba(3, 3, 3, 0.3));
 }
 
 .nav-links{
@@ -121,6 +169,13 @@ img{ max-width: 100%; display:block; }
   font-family: var(--mono);
   font-size: 0.86rem;
 }
+
+.nav-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
 .nav-links a{
   display:block;
   color: var(--text-mute);
