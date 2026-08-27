@@ -123,10 +123,6 @@ hr.rule{ border: none; border-top: 1px solid var(--border); margin: 40px 0; }
   max-width: 60vw;
   height: auto;
   margin: 0 auto 20px;
-  filter: drop-shadow(0 0 10px rgba(177, 44, 91, 0.35));
-}
-.light-mode .loader-mark{
-  filter: invert(1) brightness(0.2);
 }
 
 .loader-bar{
@@ -173,17 +169,9 @@ hr.rule{ border: none; border-top: 1px solid var(--border); margin: 40px 0; }
   max-width: 180px;
   display: inline-block;
   margin-top: 0.5em;
-  filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.5)) drop-shadow(0 0 5px rgba(3, 3, 3, 0.3));
 }
 .light-mode .logo{
   transition: filter .3s ease;
-}
-
-.site-nav .logo-img{
-  content: url('../assets/logo.png');
-}
-[data-theme="light"] .site-nav .logo-img{
-  content: url('../assets/logo_light.png');
 }
 
 .nav-controls{

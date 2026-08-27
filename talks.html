@@ -5,6 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>&lt;/KERNEL&gt; — Data Science Society, IISER TVM</title>
 <link rel="preload" href="./assets/logo.png" as="image" />
+<link rel="preload" href="./assets/logo_light.png" as="image" />
+<script>if(localStorage.getItem('theme')==='light')document.documentElement.classList.add('light-mode');</script><script>
+  if (localStorage.getItem('theme') === 'light') {
+    document.documentElement.classList.add('light-mode');
+  }
+</script>
+
 <link rel="stylesheet" href="./css/style.css" />
 <link rel="icon" type="image/png" href="./assets/favicon.png" />
 </head>
@@ -12,7 +19,14 @@
 
 <div class="page-loader" id="page-loader">
   <div class="loader-inner">
-    <img class="loader-mark" src="./assets/logo.png" alt="</KERNEL>" width="220" height="51" />
+    
+<img class="loader-mark" id="loader-img" src="./assets/logo.png" alt="</KERNEL>" width="220" height="51" />
+
+<script>
+      if (localStorage.getItem('theme') === 'light') {
+        document.getElementById('loader-img').src = './assets/logo_light.png';
+      }
+    </script>
     <div class="loader-bar"><div class="loader-bar-fill"></div></div>
     <p class="loader-text">initializing kernel framework…</p>
   </div>
@@ -22,7 +36,7 @@
   <div class="wrap">
     <div class="prompt-line"><span>$ select * from talks;</span><span class="cursor"></span></div>
     <h1>Talks</h1>
-    <p class="lede">Guest lectures and member-led sessions on statistics, machine learning, and computation — recordings and slides linked where available.</p>
+    <p class="lede">Guest lectures and member-led sessions on statistics, machine learning, and computation.</p>
   </div>
 </header>
 
