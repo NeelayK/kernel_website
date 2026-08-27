@@ -104,7 +104,7 @@ export function renderLayout() {
       <a href="./talks.html">talks</a>
       <a href="./events.html">events</a>
       <a href="./newsletter.html">newsletter</a>
-      <a href="mailto:kernel@iisertvm.ac.in">contact</a>
+      <a href="mailto:kernel-sods@iisertvm.ac.in">contact</a>
     </div>
   </div>
 </footer>`;
