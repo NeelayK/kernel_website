@@ -301,7 +301,7 @@ hr.rule{ border: none; border-top: 1px solid var(--border); margin: 40px 0; }
 .cell-body{ padding: 20px; }
 .cell-body.tight{ padding: 16px; }
 
-.hero{ padding: 64px 0 40px; }
+.hero{ padding: 64px 0 40px !important; }
 
 .prompt-line{
   font-family: var(--mono);
@@ -393,10 +393,21 @@ hr.rule{ border: none; border-top: 1px solid var(--border); margin: 40px 0; }
   text-transform: uppercase;
   letter-spacing: .04em;
 }
-.card-title{ font-size: 1.02rem; margin: 0; }
-.card-title a{ color: var(--text); }
+.card-title{ font-size: 1rem; margin: 0; }
+.card-title a{ color: var(--text); text-decoration:underline;}
 .card-title a:hover{ color: var(--accent-bright); text-decoration: none; }
-.card-desc{ color: var(--text-mute); font-size: .92rem; margin: 0; flex: 1; }
+
+.card-desc {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: .88rem;
+  margin-bottom: 0.75rem;
+}
+
 .card-foot{
   display: flex;
   align-items: center;
@@ -639,3 +650,64 @@ hr.rule{ border: none; border-top: 1px solid var(--border); margin: 40px 0; }
 .page-head .prompt-line{ margin-bottom: 10px; }
 .page-head h1{ font-size: clamp(1.7rem, 3.6vw, 2.4rem); }
 .page-head .lede{ color: var(--text-mute); max-width: 640px; }
+
+
+
+/* ==========================================================
+   SHELL$ Newsletter — special treatment (scoped, on-brand)
+   Applies to newsletter.html + issue-detail.html only, via the
+   .newsletter-page class on <body>. Same layout/type system as
+   the rest of the site — just a blue accent + a terminal boot
+   line that types itself out.
+   ========================================================== */
+
+.newsletter-page{
+  --accent:        #2563EB;
+  --accent-bright: #5B9BFF;
+  --accent-dim:    #16234A;
+  --accent-ink:    #EAF1FF;
+}
+.newsletter-page.light-mode{
+  --accent-bright: #1D4ED8;
+  --accent-dim:    #DCE7FF;
+}
+
+/* the site logo art is drawn in the pink accent — rotate it to blue
+   wherever it appears on these two pages (nav, footer, loader) */
+.newsletter-page .logo,
+.newsletter-page .loader-mark{
+  filter: hue-rotate(230deg) saturate(1.9);
+}
+
+.newsletter-title{
+  display: inline-flex;
+  align-items: baseline;
+  gap: 2px;
+  text-shadow: 0 0 18px rgba(91, 155, 255, 0.35);
+}
+
+.prompt-symbol{
+  color: var(--accent-bright);
+  font-size: 0.65em;
+  margin-left: 2px;
+}
+
+/* typing cursor used while js/boot-type.js types out the prompt line */
+.newsletter-page .prompt-line .type-cursor{
+  display: inline-block;
+  width: 8px;
+  height: 1em;
+  margin-left: 2px;
+  background: var(--accent-bright);
+  vertical-align: -2px;
+  animation: blink 1s steps(1) infinite;
+}
+
+/* latest issue gets a slightly livelier frame than a plain .cell */
+.newsletter-page #issues-list .cell:first-of-type{
+  border-color: var(--accent-dim);
+  box-shadow: 0 0 0 1px var(--accent-dim), 0 12px 30px rgba(37,99,235,0.12);
+}
+.newsletter-page #issues-list .cell:first-of-type .cell-head{
+  background: linear-gradient(180deg, rgba(91,155,255,0.08), transparent);
+}

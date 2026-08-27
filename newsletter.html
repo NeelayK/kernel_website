@@ -15,7 +15,7 @@
 <link rel="stylesheet" href="./css/style.css" />
 <link rel="icon" type="image/png" href="./assets/favicon.png" />
 </head>
-<body>
+<body class="newsletter-page">
 
 <div class="page-loader" id="page-loader">
   <div class="loader-inner">
@@ -28,18 +28,21 @@
       }
     </script>
     <div class="loader-bar"><div class="loader-bar-fill"></div></div>
-    <p class="loader-text">initializing kernel framework…</p>
+    <p class="loader-text">setting up terminal…</p>
   </div>
 </div>
 
 <header class="page-head">
   <div class="wrap">
-    <div class="prompt-line"><span>$ select * from newsletters order by published_at desc;</span><span class="cursor"></span></div>
-    <h1>Newsletter</h1>
-    <p class="lede">
-      Our newsletter rounds up talks, events, and write-ups from the data science
-      community at IISER TVM. New issues land here first.
-    </p>
+<div class="prompt-line">
+  <span>$ select * from shells order by published_at desc;</span>
+  <span class="cursor"></span>
+</div>
+<!-- THIS IS PEAK. BEST NEWSLETTER NAME ANYONE CAN COME UP WITH -->
+<h1 class="newsletter-title">SHELL<span class="prompt-symbol">$</span></h1>
+<p class="lede">
+  Acting as the outer execution interface for Kernel, <strong>SHELLs</strong> is our official newsletter digest. It wraps around our core activities—distilling talk summaries, FS-DSC symposium highlights, student project spotlights, and curated machine learning write-ups from the IISER TVM data science community into digestible reads. Fresh issues drop here first.
+</p>
   </div>
 </header>
 
@@ -50,5 +53,6 @@
 </main>
 
 <script type="module" src="./js/newsletter.js"></script>
+<script src="./js/boot-type.js"></script>
 </body>
 </html>
