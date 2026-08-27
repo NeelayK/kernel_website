@@ -3,32 +3,25 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>About — &lt;/KERNEL&gt;</title>
-<meta name="description" content="About </KERNEL>, the Data Science Society of IISER Thiruvananthapuram." />
-<style>
-  body { margin: 0; background-color: #08080A; color: #F1F1EF; }
-  .page-loader { position: fixed; inset: 0; background: #08080A; z-index: 9999; display: flex; align-items: center; justify-content: center; opacity: 1; transition: opacity 0.3s ease, visibility 0.3s ease; }
-  .page-loader.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
-</style>
-
-<link rel="preload" href="assets/logo.png" as="image" />
-<link rel="stylesheet" href="css/style.css" />
-<link rel="icon" type="image/png" href="assets/favicon.png" />
+<title>&lt;/KERNEL&gt; — Data Science Society, IISER TVM</title>
+<link rel="preload" href="./assets/logo.png" as="image" />
+<link rel="stylesheet" href="./css/style.css" />
+<link rel="icon" type="image/png" href="./assets/favicon.png" />
 </head>
 <body>
 
 <div class="page-loader" id="page-loader">
   <div class="loader-inner">
-    <img class="loader-mark" src="assets/logo.png" alt="&lt;/KERNEL&gt;" />
+    <img class="loader-mark" src="./assets/logo.png" alt="</KERNEL>" width="220" height="51" />
     <div class="loader-bar"><div class="loader-bar-fill"></div></div>
-    <p class="loader-text">uploading 184 files…</p>
+    <p class="loader-text">initializing kernel framework…</p>
   </div>
 </div>
 
 <header class="page-head">
   <div class="wrap">
     <div class="prompt-line"><span>$ cat ABOUT.md</span><span class="cursor"></span></div>
-   <h1 class="kw">About &lt;/<span>KER</span>NEL&gt;</h1>
+    <h1 class="kw">About &lt;/<span>KER</span>NEL&gt;</h1>
     <p class="lede">Student-led initiatives exploring statistics, machine learning, and high-performance computing at IISER TVM.</p>
   </div>
 </header>
@@ -36,7 +29,6 @@
 <main class="wrap">
   <section class="section">
 
-    <!-- Section 01: Overview -->
     <div class="section-head">
       <h2><span class="idx">01.</span>Overview</h2>
     </div>
@@ -49,23 +41,21 @@
       </div>
     </div>
 
-    <!-- Section 02: People -->
-    <div class="section-head" style="margin-top: 48px;">
+    <div class="section-head section-head--offset">
       <h2><span class="idx">02.</span>Our Team</h2>
     </div>
     <div id="team-container">
       <div class="state">loading team…</div>
     </div>
 
-    <!-- Section 03: Contact -->
-    <div class="section-head" style="margin-top: 48px;">
+    <div class="section-head section-head--offset">
       <h2><span class="idx">03.</span>Contact &amp; Links</h2>
     </div>
     <div class="cell">
       <div class="cell-head"><span class="dot"></span><span class="tag">Out[3]:</span> connect()</div>
       <div class="cell-body">
         <div class="contact-grid">
-          
+
           <div class="contact-card">
             <span class="contact-label">$ email --primary</span>
             <div class="contact-value">
@@ -83,9 +73,9 @@
           <div class="contact-card">
             <span class="contact-label">$ explore --navigation</span>
             <div class="contact-nav-links">
-              <a href="talks.html" class="tag-pill">talks</a>
-              <a href="events.html" class="tag-pill">events</a>
-              <a href="newsletter.html" class="tag-pill">newsletter</a>
+              <a href="./talks.html" class="tag-pill">talks</a>
+              <a href="./events.html" class="tag-pill">events</a>
+              <a href="./newsletter.html" class="tag-pill">newsletter</a>
             </div>
           </div>
 
@@ -96,6 +86,6 @@
   </section>
 </main>
 
-<script type="module" src="js/about.js"></script>
+<script type="module" src="./js/about.js"></script>
 </body>
 </html>

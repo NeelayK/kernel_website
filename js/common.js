@@ -74,11 +74,12 @@ export function initThemeToggle() {
 
   if (isLight) {
     document.body.classList.add("light-mode");
+    document.documentElement.classList.add("light-mode");
   }
 
   if (themeBtn && !themeBtn.dataset.bound) {
     themeBtn.dataset.bound = "true";
-    themeBtn.innerHTML = document.body.classList.contains("light-mode") ? MOON_ICON : SUN_ICON;
+    themeBtn.innerHTML = (document.body.classList.contains("light-mode") || document.documentElement.classList.contains("light-mode")) ? MOON_ICON : SUN_ICON;
 
     themeBtn.addEventListener("click", () => {
       const activeLight = document.body.classList.toggle("light-mode");
@@ -90,52 +91,48 @@ export function initThemeToggle() {
 }
 
 export function renderLayout() {
-  if (!document.querySelector(".site-nav")) {
-    const isLight = localStorage.getItem("theme") === "light";
-    const initialIcon = isLight ? MOON_ICON : SUN_ICON;
+  if (document.querySelector(".site-nav")) return;
 
-    const navHTML = `
+  const isLight = localStorage.getItem("theme") === "light";
+  const initialIcon = isLight ? MOON_ICON : SUN_ICON;
+
+  const navHTML = `
 <nav class="site-nav">
   <div class="wrap">
-    <a href="index.html" data-page="index.html"><img class="logo" src="assets/logo.png" alt="KERNEL" /></a>
+    <a href="./index.html" data-page="index.html"><img class="logo" src="./assets/logo.png" alt="KERNEL" /></a>
     <div style="display: flex; align-items: center; gap: 8px;"><div class="nav-controls">
       <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">${initialIcon}</button>
       <button class="nav-toggle" aria-label="Toggle menu">☰</button>
     </div>
     <ul class="nav-links">
-      <li><a href="index.html" data-page="index.html">home</a></li>
-      <li><a href="talks.html" data-page="talks.html">talks</a></li>
-      <li><a href="events.html" data-page="events.html">events</a></li>
-      <li><a href="newsletter.html" data-page="newsletter.html">newsletter</a></li>
-      <li><a href="about.html" data-page="about.html">about</a></li>
+      <li><a href="./index.html" data-page="index.html">home</a></li>
+      <li><a href="./talks.html" data-page="talks.html">talks</a></li>
+      <li><a href="./events.html" data-page="events.html">events</a></li>
+      <li><a href="./newsletter.html" data-page="newsletter.html">newsletter</a></li>
+      <li><a href="./about.html" data-page="about.html">about</a></li>
     </ul>
   </div></div>
 </nav>`;
 
-    const footerHTML = `
+  const footerHTML = `
 <footer class="site-footer">
   <div class="wrap">
     <div>
-      <img class="logo" src="assets/logo.png" alt="KERNEL" />
+      <img class="logo" src="./assets/logo.png" alt="KERNEL" />
       <p class="footer-note">Data Science Society, IISER Thiruvananthapuram. Built by students, for students.</p>
     </div>
     <div class="footer-links">
-      <a href="about.html">about</a>
-      <a href="talks.html">talks</a>
-      <a href="events.html">events</a>
-      <a href="newsletter.html">newsletter</a>
+      <a href="./about.html">about</a>
+      <a href="./talks.html">talks</a>
+      <a href="./events.html">events</a>
+      <a href="./newsletter.html">newsletter</a>
       <a href="mailto:kernel@iisertvm.ac.in">contact</a>
     </div>
   </div>
 </footer>`;
 
-    const loader = document.getElementById("page-loader");
-    if (loader) {
-      loader.insertAdjacentHTML("afterend", navHTML);
-    } else {
-      document.body.insertAdjacentHTML("afterbegin", navHTML);
-    }
-
+  if (document.body) {
+    document.body.insertAdjacentHTML("afterbegin", navHTML);
     document.body.insertAdjacentHTML("beforeend", footerHTML);
   }
 
@@ -158,10 +155,18 @@ export function getParam(name) {
 }
 
 export function hideLoader() {
-  const el = document.getElementById("page-loader");
-  if (el) el.classList.add("hidden");
+  const loader = document.getElementById('page-loader');
+  if (!loader) return;
+
+  loader.classList.add('fade-out');
+  loader.classList.add('hidden');
+  
+  setTimeout(() => {
+    loader.style.display = 'none';
+  }, 450);
 }
 
+// Auto-run layout injection as soon as DOM is ready
 if (document.readyState === "loading") {
   document.addEventListener("DOMContentLoaded", renderLayout);
 } else {
