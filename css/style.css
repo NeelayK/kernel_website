@@ -347,10 +347,14 @@ hr.rule{ border: none; border-top: 1px solid var(--border); margin: 40px 0; }
   margin-bottom: 22px;
   flex-wrap: wrap;
 }
+
 .section-head--offset{ margin-top: 48px; }
 .section-head h2{ font-size: 1.4rem; margin: 0; }
 .section-head h2 .idx,
 .section-head h3 .idx{ color: var(--accent-bright); margin-right: 10px; }
+
+.section-subhead{ justify-content: center; }
+
 .section-head .more{ font-family: var(--mono); font-size: .85rem; white-space: nowrap; }
 .section-sub{ color: var(--text-mute); max-width: 640px; margin: -12px 0 24px; }
 
@@ -510,15 +514,21 @@ hr.rule{ border: none; border-top: 1px solid var(--border); margin: 40px 0; }
 .team-section .section-head h3{ font-size: 1.15rem; margin: 0; }
 
 .member-grid{
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(180px, 220px));
+  display: flex;
+  flex-wrap: wrap;
   gap: 16px;
+  justify-content: center;
 }
 .member-card{
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: 6px;
   padding: 16px 14px;
+  max-width: 240px;
+  width: 100%;
+  min-height: 150px;
+  align-content:center;
+
   text-align: center;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
   transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
@@ -580,6 +590,7 @@ hr.rule{ border: none; border-top: 1px solid var(--border); margin: 40px 0; }
   border-color: var(--accent-bright);
   box-shadow: 0 0 14px rgba(226, 103, 143, 0.18);
 }
+
 .contact-label{
   font-family: var(--mono);
   font-size: 0.72rem;

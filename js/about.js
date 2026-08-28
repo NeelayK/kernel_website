@@ -57,8 +57,8 @@ async function loadTeam() {
 
       return `
         <div class="team-section">
-          <div class="section-head">
-            <h3><span class="idx">${String(s.number).padStart(2, "0")}.</span>${escapeHTML(s.title)}</h3>
+          <div class="section-head section-subhead">
+            <h3><span class="idx"></span>${escapeHTML(s.title)}</h3>
           </div>
           ${
             people.length
