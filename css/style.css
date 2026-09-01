@@ -26,7 +26,7 @@
 }
 
 .light-mode{
-  --bg:         #F8F9FA;
+  --bg:         #eaeaea;
   --surface:    #FFFFFF;
   --surface-2:  #F1F3F5;
   --border:     #E2E8F0;
@@ -154,6 +154,7 @@ hr.rule{ border: none; border-top: 1px solid var(--border); margin: 40px 0; }
   background: rgba(8, 8, 10, 0.85);
   backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--border);
+  
 }
 .light-mode .site-nav{
   background: rgba(255, 255, 255, 0.85);
@@ -162,6 +163,7 @@ hr.rule{ border: none; border-top: 1px solid var(--border); margin: 40px 0; }
   display: flex;
   align-items: center;
   justify-content: space-between;
+  padding: 2.25em 0;
   height: 62px;
 }
 
@@ -333,7 +335,7 @@ hr.rule{ border: none; border-top: 1px solid var(--border); margin: 40px 0; }
 .hero .lede{
   font-size: 1.08rem;
   color: var(--text-mute);
-  max-width: 620px;
+  max-width: 800px;
   margin-bottom: 28px;
 }
 .hero-actions{ display: flex; gap: 12px; flex-wrap: wrap; }
@@ -527,7 +529,7 @@ hr.rule{ border: none; border-top: 1px solid var(--border); margin: 40px 0; }
   max-width: 240px;
   width: 100%;
   min-height: 150px;
-  align-content:center;
+  padding-top: 24px;
 
   text-align: center;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
@@ -539,8 +541,8 @@ hr.rule{ border: none; border-top: 1px solid var(--border); margin: 40px 0; }
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5), 0 0 18px rgba(226, 103, 143, 0.2);
 }
 .member-pfp{
-  width: 72px;
-  height: 72px;
+  width: 96px;
+  height: 96px;
   border-radius: 50%;
   overflow: hidden;
   margin: 0 auto 12px;
@@ -660,7 +662,7 @@ hr.rule{ border: none; border-top: 1px solid var(--border); margin: 40px 0; }
 .page-head{ padding: 44px 0 8px; }
 .page-head .prompt-line{ margin-bottom: 10px; }
 .page-head h1{ font-size: clamp(1.7rem, 3.6vw, 2.4rem); }
-.page-head .lede{ color: var(--text-mute); max-width: 640px; }
+.page-head .lede{ color: var(--text-mute); max-width: 800px; }
 
 
 
@@ -695,6 +697,7 @@ hr.rule{ border: none; border-top: 1px solid var(--border); margin: 40px 0; }
   align-items: baseline;
   gap: 2px;
   text-shadow: 0 0 18px rgba(91, 155, 255, 0.35);
+  font-family: var(--logo);
 }
 
 .prompt-symbol{

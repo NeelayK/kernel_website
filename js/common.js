@@ -84,8 +84,8 @@ export function renderLayout() {
     </div>
     <ul class="nav-links">
       <li><a href="./index.html" data-page="index.html">home</a></li>
-      <li><a href="./talks.html" data-page="talks.html">talks</a></li>
       <li><a href="./events.html" data-page="events.html">events</a></li>
+      <li><a href="./talks.html" data-page="talks.html">talks</a></li>
       <li><a href="./newsletter.html" data-page="newsletter.html">newsletter</a></li>
       <li><a href="./about.html" data-page="about.html">about</a></li>
     </ul>
@@ -101,8 +101,8 @@ export function renderLayout() {
     </div>
     <div class="footer-links">
       <a href="./about.html">about</a>
-      <a href="./talks.html">talks</a>
       <a href="./events.html">events</a>
+      <a href="./talks.html">talks</a>
       <a href="./newsletter.html">newsletter</a>
       <a href="mailto:kernel-sods@iisertvm.ac.in">contact</a>
     </div>

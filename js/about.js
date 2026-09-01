@@ -17,12 +17,12 @@ function memberCard(m) {
 
   return `
     <div class="member-card">
-      <div class="member-pfp ${m.image_url ? "" : "empty"}">${img || escapeHTML(label.charAt(0).toUpperCase())}</div>
+      <div class="member-pfp ${m.image_url ? "" : "empty"}">${img || escapeHTML(label.charAt(0).toUpperCase())}</div><div>
       ${m.name ? `<h4 class="member-name">${escapeHTML(m.name)}</h4>` : ""}
       ${m.title ? `<div class="member-role">${escapeHTML(m.title)}</div>` : ""}
       ${metaParts.length ? `<div class="member-meta">${metaParts.join(" · ")}</div>` : ""}
       ${m.description ? `<p class="member-desc">${escapeHTML(m.description)}</p>` : ""}
-    </div>`;
+    </div></div>`;
 }
 
 async function loadTeam() {
