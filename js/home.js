@@ -1,5 +1,5 @@
 import { supabase, isConfigured } from "./supabase-client.js";
-import { fmtDate, escapeHTML, initNav, hideLoader, renderState } from "./common.js";
+import { fmtDate, escapeHTML, initNav, hideLoader, renderState, getShowTalks } from "./common.js";
 
 initNav();
 
@@ -40,6 +40,8 @@ function eventCard(e) {
     </article>`;
 }
 
+// --- Separate mode (show_talks = true): original two-section behaviour ---
+
 async function loadRecentTalks() {
   const el = document.getElementById("recent-talks");
   if (!isConfigured) return renderState(el, NOT_CONFIGURED_MSG, true);
@@ -64,6 +66,57 @@ async function loadRecentEvents() {
   if (error) return renderState(el, `Couldn't load events (${error.message})`, true);
   if (!data || data.length === 0) return renderState(el, "No events posted yet — check back soon.");
   el.innerHTML = data.map(eventCard).join("");
+}
+
+function renumberSections() {
+  // Re-run the 00./01./02. index labels after a section is removed, so
+  // there's no gap (e.g. 00. Log, 01. Recent, 02. Newsletter).
+  const sections = document.querySelectorAll("main.wrap > .section:not([style*='display: none']) .idx");
+  sections.forEach((el, i) => {
+    el.textContent = `${String(i).padStart(2, "0")}.`;
+  });
+}
+
+// --- Combined mode (show_talks = false): one merged "recent" section ---
+
+async function loadRecentCombined() {
+  const talksSection = document.getElementById("talks-section");
+  const eventsSection = document.getElementById("events-section");
+  const eventsGrid = document.getElementById("recent-events");
+  const eventsHeading = eventsSection ? eventsSection.querySelector(".section-head h2") : null;
+
+  // Fold the talks section away entirely — its content moves into the
+  // events grid below.
+  if (talksSection) talksSection.style.display = "none";
+  if (eventsHeading) {
+    eventsHeading.innerHTML = `<span class="idx">01.</span>Most Recent`;
+  }
+
+  if (!eventsGrid) return;
+  if (!isConfigured) return renderState(eventsGrid, NOT_CONFIGURED_MSG, true);
+
+  const [eventsRes, talksRes] = await Promise.all([
+    supabase.from("events").select("*").order("event_date", { ascending: false }).limit(3),
+    supabase.from("talks").select("*").order("talk_date", { ascending: false }).limit(3),
+  ]);
+
+  if (eventsRes.error && talksRes.error) {
+    return renderState(eventsGrid, `Couldn't load recent activity (${eventsRes.error.message})`, true);
+  }
+
+  const combined = [
+    ...(eventsRes.data || []).map((e) => ({ ...e, __type: "event", __date: e.event_date })),
+    ...(talksRes.data || []).map((t) => ({ ...t, __type: "talk", __date: t.talk_date })),
+  ]
+    .filter((i) => i.__date)
+    .sort((a, b) => new Date(b.__date) - new Date(a.__date))
+    .slice(0, 3);
+
+  if (combined.length === 0) {
+    return renderState(eventsGrid, "No events or talks posted yet — check back soon.");
+  }
+
+  eventsGrid.innerHTML = combined.map((i) => (i.__type === "talk" ? talkCard(i) : eventCard(i))).join("");
 }
 
 async function loadActivityLog() {
@@ -140,4 +193,17 @@ async function loadNewsletterTeaser() {
     </div>`;
 }
 
-Promise.all([loadActivityLog(), loadRecentTalks(), loadRecentEvents(), loadNewsletterTeaser()]).finally(hideLoader);
+async function applyTalksVisibility() {
+  const showTalks = await getShowTalks();
+  const heroTalksLink = document.getElementById("hero-talks-link");
+  if (heroTalksLink && !showTalks) heroTalksLink.remove();
+
+  if (showTalks) {
+    await Promise.all([loadRecentTalks(), loadRecentEvents()]);
+  } else {
+    await loadRecentCombined();
+    renumberSections();
+  }
+}
+
+Promise.all([loadActivityLog(), applyTalksVisibility(), loadNewsletterTeaser()]).finally(hideLoader);

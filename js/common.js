@@ -1,5 +1,7 @@
 import { initThemeToggle } from "./theme_toggle.js";
 import { SUN_ICON, MOON_ICON } from "./theme_toggle.js"
+import { supabase, isConfigured } from "./supabase-client.js";
+
 (function initThemeEarly() {
   const savedTheme = localStorage.getItem("theme");
   if (savedTheme === "light") {
@@ -37,9 +39,35 @@ export function escapeHTML(str = "") {
     .replaceAll("'", "&#39;");
 }
 
+// ---- Site-wide config (talks toggle) -------------------------------------
+// Cached so every page only fetches this once, regardless of how many
+// functions on that page need to know whether talks are enabled.
+let _showTalksPromise = null;
+
+export function getShowTalks() {
+  if (_showTalksPromise) return _showTalksPromise;
+
+  _showTalksPromise = (async () => {
+    if (!isConfigured) return true; // fail open: default to current behaviour
+    try {
+      const { data, error } = await supabase
+        .from("site_config")
+        .select("show_talks")
+        .eq("id", 1)
+        .maybeSingle();
+      if (error || !data) return true;
+      return data.show_talks !== false;
+    } catch {
+      return true;
+    }
+  })();
+
+  return _showTalksPromise;
+}
+
 export function initNav() {
   const path = location.pathname.split("/").pop() || "index.html";
-  
+
   document.querySelectorAll(".nav-links a[data-page]").forEach((a) => {
     if (a.dataset.page === path) a.classList.add("active");
   });
@@ -67,12 +95,19 @@ export function initNav() {
   }
 }
 
-export function renderLayout() {
+export async function renderLayout() {
   if (document.querySelector(".site-nav")) return;
 
   const isLight = localStorage.getItem("theme") === "light";
   const initialIcon = isLight ? MOON_ICON : SUN_ICON;
   const logoSrc = isLight ? "./assets/logo_light.png" : "./assets/logo.png";
+
+  const showTalks = await getShowTalks();
+
+  const talksNavLink = showTalks
+    ? `<li><a href="./talks.html" data-page="talks.html">talks</a></li>`
+    : "";
+  const talksFooterLink = showTalks ? `<a href="./talks.html">talks</a>` : "";
 
   const navHTML = `
 <nav class="site-nav">
@@ -85,7 +120,7 @@ export function renderLayout() {
     <ul class="nav-links">
       <li><a href="./index.html" data-page="index.html">home</a></li>
       <li><a href="./events.html" data-page="events.html">events</a></li>
-      <li><a href="./talks.html" data-page="talks.html">talks</a></li>
+      ${talksNavLink}
       <li><a href="./newsletter.html" data-page="newsletter.html">newsletter</a></li>
       <li><a href="./about.html" data-page="about.html">about</a></li>
     </ul>
@@ -102,7 +137,7 @@ export function renderLayout() {
     <div class="footer-links">
       <a href="./about.html">about</a>
       <a href="./events.html">events</a>
-      <a href="./talks.html">talks</a>
+      ${talksFooterLink}
       <a href="./newsletter.html">newsletter</a>
       <a href="mailto:kernel-sods@iisertvm.ac.in">contact</a>
     </div>
@@ -138,7 +173,7 @@ export function hideLoader() {
 
   loader.classList.add('fade-out');
   loader.classList.add('hidden');
-  
+
   setTimeout(() => {
     loader.style.display = 'none';
   }, 450);

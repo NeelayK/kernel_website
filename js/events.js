@@ -1,23 +1,78 @@
 import { supabase, isConfigured } from "./supabase-client.js";
-import { fmtDateTime, escapeHTML, initNav, renderState, hideLoader } from "./common.js";
+import { fmtDateTime, escapeHTML, initNav, renderState, hideLoader, getShowTalks } from "./common.js";
 
 initNav();
 
-function eventCard(e) {
-  const img = e.image_url
-    ? `<img src="${escapeHTML(e.image_url)}" alt="${escapeHTML(e.title)}" loading="lazy" />`
+function itemCard(item) {
+  const img = item.image_url
+    ? `<img src="${escapeHTML(item.image_url)}" alt="${escapeHTML(item.title)}" loading="lazy" />`
     : "";
-  const href = `event-detail.html?id=${encodeURIComponent(e.id)}`;
+  const href =
+    item.type === "talk"
+      ? `talk-detail.html?id=${encodeURIComponent(item.id)}`
+      : `event-detail.html?id=${encodeURIComponent(item.id)}`;
+  const badge = item.type === "talk" ? `<span class="card-badge">talk</span>` : "";
+  const footText = item.type === "talk" ? item.speaker : item.location;
+
   return `
     <article class="card">
-      <div class="card-media ${e.image_url ? "" : "empty"}">${img || "no image"}</div>
+      <div class="card-media ${item.image_url ? "" : "empty"}">${img || "no image"}</div>
       <div class="card-body">
-        <span class="card-meta">${fmtDateTime(e.event_date)}</span>
-        <h3 class="card-title"><a href="${href}">${escapeHTML(e.title)}</a></h3>
-        <p class="card-desc">${escapeHTML(e.description || "")}</p>
-        <div class="card-foot"><span>${escapeHTML(e.location || "")}</span></div>
+        <span class="card-meta">${badge}${fmtDateTime(item.date)}</span>
+        <h3 class="card-title"><a href="${href}">${escapeHTML(item.title)}</a></h3>
+        <p class="card-desc">${escapeHTML(item.description || "")}</p>
+        <div class="card-foot"><span>${escapeHTML(footText || "")}</span></div>
       </div>
     </article>`;
+}
+
+function normalizeEvent(e) {
+  return { ...e, type: "event", date: e.event_date };
+}
+
+function normalizeTalk(t) {
+  return { ...t, type: "talk", date: t.talk_date };
+}
+
+async function loadEventsOnly() {
+  const nowIso = new Date().toISOString();
+  const [upcomingRes, pastRes] = await Promise.all([
+    supabase.from("events").select("*").gte("event_date", nowIso).order("event_date", { ascending: true }),
+    supabase.from("events").select("*").lt("event_date", nowIso).order("event_date", { ascending: false }),
+  ]);
+
+  return {
+    upcomingError: upcomingRes.error,
+    pastError: pastRes.error,
+    upcoming: (upcomingRes.data || []).map(normalizeEvent),
+    past: (pastRes.data || []).map(normalizeEvent),
+  };
+}
+
+async function loadEventsAndTalks() {
+  const nowIso = new Date().toISOString();
+
+  const [upcomingEvents, pastEvents, upcomingTalks, pastTalks] = await Promise.all([
+    supabase.from("events").select("*").gte("event_date", nowIso),
+    supabase.from("events").select("*").lt("event_date", nowIso),
+    supabase.from("talks").select("*").gte("talk_date", nowIso),
+    supabase.from("talks").select("*").lt("talk_date", nowIso),
+  ]);
+
+  const upcomingError = upcomingEvents.error || upcomingTalks.error;
+  const pastError = pastEvents.error || pastTalks.error;
+
+  const upcoming = [
+    ...(upcomingEvents.data || []).map(normalizeEvent),
+    ...(upcomingTalks.data || []).map(normalizeTalk),
+  ].sort((a, b) => new Date(a.date) - new Date(b.date));
+
+  const past = [
+    ...(pastEvents.data || []).map(normalizeEvent),
+    ...(pastTalks.data || []).map(normalizeTalk),
+  ].sort((a, b) => new Date(b.date) - new Date(a.date));
+
+  return { upcomingError, pastError, upcoming, past };
 }
 
 async function loadEvents() {
@@ -31,27 +86,25 @@ async function loadEvents() {
     return;
   }
 
-  const nowIso = new Date().toISOString();
+  const showTalks = await getShowTalks();
+  const { upcomingError, pastError, upcoming, past } = showTalks
+    ? await loadEventsOnly()
+    : await loadEventsAndTalks();
 
-  const [upcomingRes, pastRes] = await Promise.all([
-    supabase.from("events").select("*").gte("event_date", nowIso).order("event_date", { ascending: true }),
-    supabase.from("events").select("*").lt("event_date", nowIso).order("event_date", { ascending: false }),
-  ]);
-
-  if (upcomingRes.error) {
-    renderState(upcomingEl, `Couldn't load events (${upcomingRes.error.message})`, true);
-  } else if (!upcomingRes.data || upcomingRes.data.length === 0) {
+  if (upcomingError) {
+    renderState(upcomingEl, `Couldn't load events (${upcomingError.message})`, true);
+  } else if (upcoming.length === 0) {
     renderState(upcomingEl, "Nothing scheduled right now — check back soon.");
   } else {
-    upcomingEl.innerHTML = upcomingRes.data.map(eventCard).join("");
+    upcomingEl.innerHTML = upcoming.map(itemCard).join("");
   }
 
-  if (pastRes.error) {
-    renderState(pastEl, `Couldn't load events (${pastRes.error.message})`, true);
-  } else if (!pastRes.data || pastRes.data.length === 0) {
+  if (pastError) {
+    renderState(pastEl, `Couldn't load events (${pastError.message})`, true);
+  } else if (past.length === 0) {
     renderState(pastEl, "No past events yet.");
   } else {
-    pastEl.innerHTML = pastRes.data.map(eventCard).join("");
+    pastEl.innerHTML = past.map(itemCard).join("");
   }
 }
 
