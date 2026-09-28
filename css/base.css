@@ -1,7 +1,7 @@
 :root{
-  --bg:         #08080A;
-  --surface:    #131316;
-  --surface-2:  #1C1C21;
+  --bg:         #0f0f13;
+  --surface:    #111112;
+  --surface-2:  #0f0f13;
   --border:     #2A2A31;
   --text:       #F1F1EF;
   --text-mute:  #bbbbc1;
@@ -57,5 +57,7 @@ body:has(#kernel-preloader) { overflow: hidden; }
 #kernel-logo path,
 #kernel-logo rect { fill: var(--text); }
 
-#kernel-logo #kernel-box { fill: var(--accent-bright); }
+#kernel-logo #kernel-box { fill: var(--accent); }
 #kernel-logo #kernel-reveal-rect { fill: none; }
+
+#kernel-logo #kernel-ink * { fill: var(--bg); }
