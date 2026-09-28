@@ -1,47 +1,120 @@
 <!doctype html>
 <html lang="en">
-<head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Event — &lt;/KERNEL&gt;</title>
-<meta name="description" content="An event run by </KERNEL>, the Data Science Society of IISER Thiruvananthapuram." />
-<link rel="preload" href="./assets/logo.png" as="image" />
-<link rel="preload" href="./assets/logo_light.png" as="image" />
-<script>if(localStorage.getItem('theme')==='light')document.documentElement.classList.add('light-mode');</script><script>
-  if (localStorage.getItem('theme') === 'light') {
-    document.documentElement.classList.add('light-mode');
-  }
-</script>
-
-<link rel="stylesheet" href="./css/style.css" />
-<link rel="icon" type="image/png" href="./assets/favicon.png" />
-</head>
-<body>
-
-<div class="page-loader" id="page-loader">
-  <div class="loader-inner">
-    
-<img class="loader-mark" id="loader-img" src="./assets/logo.png" alt="</KERNEL>" width="220" height="51" />
-
-<script>
-      if (localStorage.getItem('theme') === 'light') {
-        document.getElementById('loader-img').src = './assets/logo_light.png';
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Event — &lt;/KERNEL&gt;</title>
+    <meta
+      name="description"
+      content="An event run by </KERNEL>, the Data Science Society of IISER Thiruvananthapuram."
+    />
+    <link rel="preload" href="./assets/logo.png" as="image" />
+    <link rel="preload" href="./assets/logo_light.png" as="image" />
+    <script>
+      if (localStorage.getItem("theme") === "light")
+        document.documentElement.classList.add("light-mode");
+    </script>
+    <script>
+      if (localStorage.getItem("theme") === "light") {
+        document.documentElement.classList.add("light-mode");
       }
     </script>
-    <div class="loader-bar"><div class="loader-bar-fill"></div></div>
-    <p class="loader-text">simulating event…</p>
-  </div>
-</div>
 
-<main class="wrap">
-  <section class="section">
-    <div class="detail" id="event-detail">
-      <div class="state">loading event…</div>
+    <script src="./js/preloader.js" defer></script>
+    <link rel="stylesheet" href="./css/preloader.css" />
+    <link rel="stylesheet" href="./css/style.css" />
+    <link rel="icon" type="image/png" href="./assets/favicon.png" />
+  </head>
+  <body>
+    <div id="kernel-preloader" role="status" aria-label="Loading">
+      <svg
+        id="kernel-logo"
+        viewBox="0 0 927.69 176.75"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <defs>
+          <clipPath id="kernel-reveal">
+            <rect
+              id="kernel-reveal-rect"
+              x="0"
+              y="-500"
+              width="0"
+              height="1200"
+            />
+          </clipPath>
+        </defs>
+
+        <!-- < > (rotate together as one pair) -->
+        <g id="kernel-pair">
+          <g id="kernel-w-l">
+            <g id="kernel-chev-l">
+              <polygon
+                points="51.65 140.79 0 89.13 51.55 37.58 71.35 57.38 39.6 89.13 71.45 120.99 51.65 140.79"
+              />
+            </g>
+          </g>
+          <g id="kernel-w-r">
+            <g id="kernel-chev-r">
+              <polygon
+                points="876.14 140.79 856.34 120.99 888.09 89.24 856.24 57.38 876.04 37.58 927.69 89.24 876.14 140.79"
+              />
+            </g>
+          </g>
+        </g>
+
+        <!-- accent box behind KER -->
+        <rect id="kernel-box" x="175.21" y="0" width="359.29" height="176.75" />
+
+        <!-- / K E R N E L -->
+        <g id="kernel-mid" clip-path="url(#kernel-reveal)">
+          <g class="kernel-w">
+            <polygon
+              points="162.6 22.16 123.59 158.03 84.06 158.03 123.07 22.16 162.6 22.16"
+            />
+          </g>
+          <g class="kernel-w">
+            <polygon
+              points="304.69 158.03 264.07 158.03 247.83 119.48 243.92 110.19 237.72 119.48 232.48 127.34 232.48 158.03 193.79 158.03 193.79 22.16 232.48 22.16 232.48 61.18 232.8 60.71 251.75 32.31 258.52 22.16 302.66 22.16 276.93 60.71 271.34 69.1 268.82 72.87 283.47 107.64 288.45 119.48 304.69 158.03"
+            />
+          </g>
+          <g class="kernel-w">
+            <polygon
+              points="351.48 60.71 351.48 69.1 406.03 69.1 406.03 107.64 351.48 107.64 351.48 119.48 406.03 119.48 406.03 158.03 312.69 158.03 312.69 22.16 406.03 22.16 406.03 60.71 351.48 60.71"
+            />
+          </g>
+          <g class="kernel-w">
+            <path
+              d="M493.6,22.16h-79.57v135.87h38.49v-50.39h25.87v50.39h39.11v-50.01l-.38-.38-8.91-8.92,9.29-9.29v-43.37l-23.9-23.9ZM478.39,78.43h-25.87v-17.72h25.87v17.72Z"
+            />
+          </g>
+          <g class="kernel-w">
+            <polygon
+              points="655.34 22.16 655.34 158.03 616.45 158.03 596.1 119.48 590.38 108.64 590.38 107.64 589.85 107.64 590.38 108.64 590.38 158.03 551.5 158.03 551.5 22.16 590.38 22.16 610.73 60.71 615.16 69.1 616.45 71.54 616.45 22.16 655.34 22.16"
+            />
+          </g>
+          <g class="kernel-w">
+            <rect x="663.34" y="22.16" width="93.74" height="38.55" />
+            <rect x="663.34" y="119.48" width="93.74" height="38.55" />
+            <rect x="663.34" y="69.1" width="47.3" height="38.54" />
+          </g>
+          <g class="kernel-w">
+            <polygon
+              points="843.63 119.48 843.63 158.03 765.08 158.03 765.08 22.16 802.6 22.16 802.6 119.48 843.63 119.48"
+            />
+          </g>
+        </g>
+      </svg>
     </div>
-  </section>
-</main>
 
-<script type="module" src="./js/event-detail.js"></script>
-<script src="./js/boot-type.js"></script>
-</body>
+    <main class="wrap">
+      <section class="section">
+        <div class="detail" id="event-detail">
+          <div class="state">loading event…</div>
+        </div>
+      </section>
+    </main>
+
+    <script type="module" src="./js/event-detail.js"></script>
+    <script src="./js/boot-type.js"></script>
+  </body>
 </html>

@@ -1,79 +1,88 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>404 - Kernel Panic | Page Not Found</title>
-  <script>
-    if (localStorage.getItem('theme') === 'light') {
-      document.documentElement.classList.add('light-mode');
-    }
-  </script>
-  <link rel="stylesheet" href="./css/style.css">
-  <link rel="icon" type="image/png" href="./assets/favicon.png" />
-  <style>
-    .corrupt-text {
-      font-family: monospace;
-      word-break: break-all;
-      opacity: 0.9;
-    }
-    .btn-home {
-      display: inline-block;
-      margin-top: 1.5rem;
-      padding: 0.6rem 1.2rem;
-      border: 1px solid currentColor;
-      text-decoration: none;
-      font-family: monospace;
-      transition: background-color 0.2s, color 0.2s;
-    }
-    .btn-home:hover {
-      background-color: currentColor;
-      color: #000;
-    }
-  </style>
-</head>
-<body>
-
-  <header class="hero page-head">
-    <div class="wrap">
-      <div class="prompt-line">
-        <span>$ error --code 404 --status PAGE_NOT_FOUND</span>
-        <span class="cursor"></span>
-      </div>
-      
-      <h1 class="kw">404: &lt;/<span><span id="corrupt-title">KER</span></span>&gt;</h1>
-      
-      <p class="lede">
-        <strong>How Did We Get Here?: Segfault at address 0x00000<span><span id="corrupt-er" class="corrupt-text">404</span></span>.</strong><br>
-        <span id="corrupt-desc" class="corrupt-text"></span>
-      </p>
-
-      <a href="/" class="btn-home">&lt; Return to Safety /&gt;</a>
-    </div>
-  </header>
-
-  <script>
-    const glyphs = '!@#$%^&*()_+-=[]{}|;:,.<>?/░▒▓█~0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
-    const titleEl = document.getElementById('corrupt-title');
-    const descEl = document.getElementById('corrupt-desc');
-    const errEl = document.getElementById('corrupt-er');
-
-    function generateGibberish(length) {
-      let result = '';
-      for (let i = 0; i < length; i++) {
-        result += glyphs.charAt(Math.floor(Math.random() * glyphs.length));
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>404 - Kernel Panic | Page Not Found</title>
+    <script>
+      if (localStorage.getItem("theme") === "light") {
+        document.documentElement.classList.add("light-mode");
       }
-      return result;
-    }
+    </script>
+    <link rel="stylesheet" href="./css/style.css" />
+    <link rel="icon" type="image/png" href="./assets/favicon.png" />
+    <style>
+      .corrupt-text {
+        font-family: monospace;
+        word-break: break-all;
+        opacity: 0.9;
+      }
+      .btn-home {
+        display: inline-block;
+        margin-top: 1.5rem;
+        padding: 0.6rem 1.2rem;
+        border: 1px solid currentColor;
+        text-decoration: none;
+        font-family: monospace;
+        transition:
+          background-color 0.2s,
+          color 0.2s;
+      }
+      .btn-home:hover {
+        background-color: currentColor;
+        color: #000;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="hero page-head">
+      <div class="wrap">
+        <div class="prompt-line">
+          <span>$ error --code 404 --status PAGE_NOT_FOUND</span>
+          <span class="cursor"></span>
+        </div>
 
-    setInterval(() => {
-      if (titleEl) titleEl.textContent = generateGibberish(8);
-      if (descEl) descEl.textContent = generateGibberish(260);
-      if (errEl) errEl.textContent = generateGibberish(3);
-    }, 67);
-  </script>
+        <h1 class="kw">
+          404: &lt;/<span><span id="corrupt-title">KER</span></span
+          >&gt;
+        </h1>
 
-  <script type="module" src="./js/404.js"></script>
-  <script src="./js/boot-type.js"></script>
-</body>
+        <p class="lede">
+          <strong
+            >How Did We Get Here?: Segfault at address 0x00000<span
+              ><span id="corrupt-er" class="corrupt-text">404</span></span
+            >.</strong
+          ><br />
+          <span id="corrupt-desc" class="corrupt-text"></span>
+        </p>
+
+        <a href="/" class="btn-home">&lt; Return to Safety /&gt;</a>
+      </div>
+    </header>
+
+    <script>
+      const glyphs =
+        "!@#$%^&*()_+-=[]{}|;:,.<>?/░▒▓█~0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+      const titleEl = document.getElementById("corrupt-title");
+      const descEl = document.getElementById("corrupt-desc");
+      const errEl = document.getElementById("corrupt-er");
+
+      function generateGibberish(length) {
+        let result = "";
+        for (let i = 0; i < length; i++) {
+          result += glyphs.charAt(Math.floor(Math.random() * glyphs.length));
+        }
+        return result;
+      }
+
+      setInterval(() => {
+        if (titleEl) titleEl.textContent = generateGibberish(8);
+        if (descEl) descEl.textContent = generateGibberish(260);
+        if (errEl) errEl.textContent = generateGibberish(3);
+      }, 67);
+    </script>
+
+    <script type="module" src="./js/404.js"></script>
+    <script src="./js/boot-type.js"></script>
+  </body>
 </html>
